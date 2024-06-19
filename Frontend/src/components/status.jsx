@@ -12,7 +12,7 @@ export function Status({ text }) {
   }, [text]);
 
   return (
-    <span className={`${bg} px-2 py-1 rounded-md text-sm`}>
+    <span className={`${bg} px-2 py-[1px] rounded-md text-[8px] md:text-[15px]`}>
       {text}
     </span>
   );

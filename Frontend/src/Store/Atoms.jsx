@@ -1,4 +1,5 @@
-import { atom } from "recoil";
+import { atom, atomFamily, selector } from "recoil";
+import axios from "axios"
 
 export const CurrentUrl = atom({
     key: "CurrentURL",
@@ -27,13 +28,8 @@ export const recenttransaction = atom({
             status : "Pending",
             invoiceNumber :12,
             amount : 23
-        },{
-            name: "Client",
-            role : "jkajsd",
-            status : "Pending",
-            invoiceNumber :12,
-            amount : 23
-        },{
+        },
+        {
             name: "Client",
             role : "jkajsd",
             status : "Pending",
@@ -61,11 +57,27 @@ export const recentprojects = atom({
             role : "jkajsd",
             status : "Paid",
             detailtitle: "kjs"
-        }, {
-            name: "Client",
-            role : "jkajsd",
-            status : "Paid",
-            detailtitle: "kjs"
         }
     ]
+})
+
+export const Clients = atom({
+    key: "Clients",
+    default: selector({
+        key: "clientselecter",
+        get : async ()=>{
+            try{
+            const token = localStorage.getItem("token")
+            const res = await axios.get("http://localhost:3000/user/clients",{
+                headers: {
+                    authorization: token
+                }
+            })
+            console.log(res.data.clients)
+            return res.data
+        }catch{
+            console.log("j")
+        }
+        }
+    })
 })

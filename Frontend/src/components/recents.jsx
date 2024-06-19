@@ -6,7 +6,7 @@ import { Project } from './Project';
 export function Recents(props) {
     if(props.name === "Recent Transacton"){
         return (
-            <div className="flex flex-col mt-4 p-4 rounded-md max-h-[530px] w-[515px] border-b">
+            <div className="flex flex-col mt-4 p-4 rounded-md max-h-[530px] max-w-[250px] md:max-w-[524px] border-b">
               <h2 className="text-lg font-semibold">{props.name}</h2>
               <div>
                 {props.transactions.map((transaction) => (
@@ -26,7 +26,7 @@ export function Recents(props) {
     }
     if(props.name === "Recent Projects"){
         return (
-            <div className="flex flex-col mt-4 p-4 rounded-md max-h-[530px] w-[515px] border-b">
+            <div className="flex flex-col mt-4 p-4 rounded-md max-h-[530px] max-w-[250px] md:max-w-[524px] border-b">
               <h2 className="text-lg font-semibold">{props.name}</h2>
               <div>
                 {props.Projects.map((project,index) => (

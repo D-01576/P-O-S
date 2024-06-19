@@ -16,7 +16,7 @@ export function Nav() {
 
   const handleNavigation = (url) => {
     setCurrentURL(url);
-    navigate(`/${url.toLowerCase()}`);
+    navigate(`/home/${url.toLowerCase()}`);
     setNav(false); // Close the mobile menu
   };
 
@@ -28,7 +28,7 @@ export function Nav() {
   ];
 
   return (
-    <div className='flex justify-between items-center h-12 max-w-[1300px] mx-auto px-4 border-b-b'>
+    <div className='flex justify-between items-center h-12 max-w-[1300px] px-4 border-b-b'>
       <h1 className='text-black'>REACT.</h1>
 
       <ul className='hidden md:flex'>
@@ -51,14 +51,14 @@ export function Nav() {
       </div>
 
       <ul
-        className={`fixed top-0 left-0 w-[60%] h-full bg-[#000300] bg-opacity-5 border-r border-gray-100 ease-in-out duration-500 ${
+        className={`fixed top-0 left-0 w-[60%] h-full bg-white ease-in-out duration-500 ${
           nav ? 'flex justify-center items-center flex-col' : 'left-[-100%]'
         } md:hidden`}
       >
         {navItems.map(item => (
           <li
             key={item.id}
-            className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
+            className='p-4 text-white border-b-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-white cursor-pointer border-gray-600'
             onClick={() => handleNavigation(item.text)}
           >
             {item.text}
