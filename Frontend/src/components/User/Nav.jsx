@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
-import { CurrentUrl } from '../Store/Atoms';
-import { icons } from '../constants';
+import { CurrentUrl } from '../../Store/Atoms';
+import { icons } from '../../constants';
 
-export function Nav() {
+export function UserNav() {
   const [nav, setNav] = useState(false);
   const [currentURL, setCurrentURL] = useRecoilState(CurrentUrl);
-  const navigate = useNavigate();
-
   const handleNav = () => {
     setNav(!nav);
   };
 
   const handleNavigation = (url) => {
     setCurrentURL(url);
-    navigate(`/home/${url.toLowerCase()}`);
-    setNav(false); // Close the mobile menu
+    window.location.href = `/user/${url.toLowerCase()}`;
+    setNav(false); 
   };
 
   const navItems = [
     { id: 1, text: 'Home' },
     { id: 2, text: 'Invoices' },
-    { id: 3, text: 'Projects' },
+    { id: 3, text: 'items' },
     { id: 4, text: 'Clients' }
   ];
 

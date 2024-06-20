@@ -4,14 +4,14 @@ const secretkey = "Nissar"
 
 async function AdminLog(req, res) {
     console.log(Admin)
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
         console.log("k")
-        const admin = await Admin.findOne({ username });
+        const admin = await Admin.findOne({ email });
         console.log(admin)
         if (admin) {
             if (admin.password === password) {
-                const token = jwt.sign({username: admin.username},secretkey);
+                const token = jwt.sign({email: admin.email},secretkey);
                 res.status(200).json({ token }); 
             } else {
                 res.status(401).json({ message: "Incorrect password" });

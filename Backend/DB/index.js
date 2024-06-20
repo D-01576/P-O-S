@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-const dbName = "LPKSDJKFN"
+const dbName = "POS"
 const MONGO_URI = `mongodb://sarfaraz01576:3KQPtlC1WKVqm8aX@ac-si9dluk-shard-00-00.e0cgrm7.mongodb.net:27017,ac-si9dluk-shard-00-01.e0cgrm7.mongodb.net:27017,ac-si9dluk-shard-00-02.e0cgrm7.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-12tgl7-shard-0&authSource=admin&retryWrites=true&w=majority&appName=xype1`;
 
 mongoose.connect(MONGO_URI)
 
 // Admin model
 const adminSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
 });
 
@@ -22,11 +22,12 @@ const userSchema = new mongoose.Schema({
 const clientSchema = new mongoose.Schema({
     customerName: { type: String, required: true },
     phone: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true,unique:true},
     address: { type: String, required: true },
     state: { type: String, required: true },
     city: { type: String, required: true },
-    pincode: { type: String, required: true },
+    pincode: { type: String },
+    gstNumber: { type: String }
 });
 
 // Item model
@@ -46,7 +47,6 @@ const saleSchema = new mongoose.Schema({
     vehicleDetails: {
         make: { type: String, required: true },
         model: { type: String, required: true },
-        speedometerReading: { type: String},
         registrationNumber: { type: String, required: true },
         gstNumber: { type: String },
     },
@@ -65,7 +65,7 @@ const createDefaultAdmin = async () => {
             console.log('Admin already exists');
         } else {
             const admin = new Admin({
-                username: 'admin123',
+                email: 'admin123',
                 password: 'admin123',
             });
             await admin.save();

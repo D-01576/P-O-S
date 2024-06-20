@@ -1,34 +1,32 @@
 import axios from "axios";
 export function useVerify() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admintoken");
     console.log(token)
     const location = window.location.pathname
     console.log(location)
         const fetchData = async () => {
             try {
-                const response = await axios.post("http://localhost:3000/user/verify",{},{
+                const response = await axios.post("http://localhost:3000/admin/verify",{},{
                     headers: {
                         authorization: token
                     }
                 });
                 if (response.data.status === "success") {
-                    console.log("nut")
-                    if(location === "/user/signin"){
-                        console.log("yes")
-                window.location.pathname = "/user/home";
+                    if(location === "/admin/signin"){
+                    window.location.pathname = "/admin/home";
                     }
                 }
                 else{
-                    if(location === "/user/signin"){
+                    if(location === "/admin/signin"){
                         
                     }
                     else{
-                        window.location.href = "/user/signin";
+                        window.location.href = "/admin/signin";
                     }
                 }
             } catch (error) {
-                if(location !== "/user/signin"){
-                    window.location.href = "/user/signin";
+                if(location !== "/admin/signin"){
+                    window.location.href = "/admin/signin";
             }
             }
         };

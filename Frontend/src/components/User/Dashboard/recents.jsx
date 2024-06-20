@@ -1,6 +1,6 @@
 import React from 'react';
 import {InvoiceItem} from './InvoiceItem';
-import { icons } from '../constants';
+import { icons } from '../../../constants';
 import { Project } from './Project';
 
 export function Recents(props) {

@@ -73,10 +73,51 @@ export const Clients = atom({
                     authorization: token
                 }
             })
-            console.log(res.data.clients)
             return res.data
         }catch{
-            console.log("j")
+            console.log("error")
+        }
+        }
+    })
+})
+
+export const itemsatom = atom({
+    key: "itemsatom",
+    default: selector({
+        key: "itemsselecter",
+        get : async ()=>{
+            try{
+            const token = localStorage.getItem("token")
+            const res = await axios.get("http://localhost:3000/user/items",{
+                headers: {
+                    authorization: token
+                }
+            })
+            console.log(res.data)
+            return res.data
+        }catch{
+            console.log("jaksdf")
+        }
+        }
+    })
+})
+
+export const usersatom = atom({
+    key: "usersatom",
+    default: selector({
+        key: "userselecter",
+        get : async ()=>{
+            try{
+            const token = localStorage.getItem("admintoken")
+            const res = await axios.get("http://localhost:3000/admin/users",{
+                headers: {
+                    authorization: token
+                }
+            })
+            console.log(res.data)
+            return res.data
+        }catch{
+            console.log("jaksdf")
         }
         }
     })

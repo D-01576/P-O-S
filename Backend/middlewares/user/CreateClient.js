@@ -2,7 +2,7 @@ const { Client } = require("../../DB");
 
 async function createClient(req, res) {
     try {
-        const { customerName, phone, email, address, state, city, pincode, vehicleDetails } = req.body;
+        const { customerName, phone, email, address, state, city, pincode,gstNumber } = req.body;
 
         const newCustomer = new Client({
             customerName,
@@ -12,7 +12,7 @@ async function createClient(req, res) {
             state,
             city,
             pincode,
-            vehicleDetails
+            gstNumber
         });
 
         await newCustomer.save();

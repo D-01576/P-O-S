@@ -11,4 +11,4 @@ async function getAllItems(req, res) {
     }
 }
 
-module.exports = getAllClients;
+module.exports = getAllItems;

@@ -12,11 +12,11 @@ async function Verify(req, res) {
         if (err) {
             return res.status(403).json({ status: "Token invalid" });
         }
-        const username = decoded.username;
+        const email = decoded.email;
         try {
-            const userr = await Admin.findOne({ username: username });
+            const userr = await Admin.findOne({ email: email });
             if (userr) {
-                return res.status(403).json({ status: "success"});
+                return res.status(201).json({ status: "success"});
             } else {
                 return res.status(403).json({ status: "Admin not found" });
             }

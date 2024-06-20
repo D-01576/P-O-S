@@ -1,6 +1,6 @@
 const { Item } = require("../../DB");
 
-async function deleteClient(req, res) {
+async function deleteItem(req, res) {
     try {
         const {itemId} = req.body; 
 
@@ -18,4 +18,4 @@ async function deleteClient(req, res) {
     }
 }
 
-module.exports = deleteClient;
+module.exports = deleteItem;

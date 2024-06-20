@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useVerify } from "./Verify";
 
-export function Signin() {
+export function UserSignin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     useEffect(()=>{
