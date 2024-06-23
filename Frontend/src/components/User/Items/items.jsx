@@ -4,6 +4,7 @@ import axios from 'axios';
 import AddItemPopup from './Additem';
 import { itemsatom } from '../../../Store/Atoms';
 import { useVerify } from '../Verify';
+import { MdAdd, MdDelete } from 'react-icons/md';
 
 export function Items() {
     useEffect(() => {
@@ -12,7 +13,6 @@ export function Items() {
     
     const items = useRecoilValue(itemsatom);
     const setItems = useSetRecoilState(itemsatom);
-
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const deleteItem = async (itemId) => {
@@ -39,32 +39,38 @@ export function Items() {
             console.error('Error deleting item:', error);
         }
     };
+
     return (
-        <div className='flex justify-center items-center h-[90vh]'>
-            <div className='flex flex-col items-end border-b p-[40px] bg-gray-50 rounded'>
-                <button
-                    className="bg-blue-500 text-white p-2 rounded-md shadow-sm hover:bg-blue-600"
-                    onClick={() => setIsPopupOpen(true)}
-                >
-                    + Add Item
-                </button>
-                {items.Items.map((item, index) => (
-                    <div key={index} className="flex items-center w-[900px] justify-between border-b-b p-4">
-                        <div className="flex flex-col">
-                            <span className="font-semibold text-xs md:text-[15px]">{item.item}</span>
-                            <span className="text-gray-500 text-xs md:text-[15px]">{item._id}</span>
+        <div className='flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300'>
+            <div className='w-full max-w-5xl bg-white shadow-lg rounded-lg p-8'>
+                <div className='flex justify-between items-center mb-8'>
+                    <h1 className='text-2xl font-bold text-gray-700'>Item Management</h1>
+                    <button
+                        className='flex items-center bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-300'
+                        onClick={() => setIsPopupOpen(true)}
+                    >
+                        <MdAdd className='mr-2' /> Add Item
+                    </button>
+                </div>
+                <div className='divide-y divide-gray-200'>
+                    {items.Items.map((item, index) => (
+                        <div key={index} className='flex justify-between items-center py-6 px-4 hover:bg-gray-50 transition duration-300'>
+                            <div className='flex flex-col'>
+                                <p className='text-lg font-medium text-gray-900'>{item.item}</p>
+                                <p className='text-sm text-gray-500'>{item._id}</p>
+                            </div>
+                            <div className='text-right flex items-center'>
+                                <p className='text-lg font-semibold text-gray-700 mr-4'>{item.price}</p>
+                                <button
+                                    className='text-sm bg-red-500 text-white px-3 py-1 rounded-md shadow-md hover:bg-red-600 transition duration-300'
+                                    onClick={() => deleteItem(item._id)}
+                                >
+                                    <MdDelete className='mr-1' /> Delete
+                                </button>
+                            </div>
                         </div>
-                        <span className="text-gray-500 text-xs md:text-[15px]">{item.price}</span>
-                        <div className="flex flex-col items-end">
-                            <button
-                                className='bg-red-500 p-[6px] rounded text-[white]'
-                                onClick={() => deleteItem(item._id)}
-                            >
-                                delete
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
             {isPopupOpen && <AddItemPopup onClose={() => setIsPopupOpen(false)} />}
         </div>

@@ -1,7 +1,9 @@
 const { Sale, Client } = require("../../DB");
 
-async function getTotalSaleAmounts(req, res) {
+async function UserStatus(req, res) {
     try {
+        const [userId] = req.body;
+        const Sales = await Sale.findOne({userId});
         
     } catch (error) {
         console.error("Error in getTotalSaleAmounts:", error);
@@ -9,4 +11,4 @@ async function getTotalSaleAmounts(req, res) {
     }
 }
 
-module.exports = getTotalSaleAmounts;
+module.exports = UserStatus;

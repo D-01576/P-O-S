@@ -1,72 +1,45 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useVerify } from '../Verify';
 import { usersatom } from '../../../Store/Atoms';
 import AddUserPopup from './adduser';
+import { MdAdd } from 'react-icons/md';
 
 export function Users() {
     useEffect(() => {
         useVerify();
     }, []);
     
-    const Users = useRecoilValue(usersatom);
-    const setClients = useSetRecoilState(usersatom);
-    console.log(Users)
-
-
+    const users = useRecoilValue(usersatom);
+    const setUsers = useSetRecoilState(usersatom);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    // const deleteClient = async (userId) => {
-    //     try {
-    //         const token = localStorage.getItem('token');
-
-    //         const response = await axios.post('http://localhost:3000/admin/delete', 
-    //             { clientId: clientId }, 
-    //             {
-    //                 headers: {
-    //                     'authorization':  token
-    //                 }
-    //             }
-    //         );
-
-    //         if (response.status !== 200) {
-    //             throw new Error('Failed to delete client');
-    //         }
-    //         setClients((prevClients) => ({
-    //             ...prevClients,
-    //             clients: prevClients.clients.filter(client => client._id !== clientId),
-    //         }));
-    //     } catch (error) {
-    //         console.error('Error deleting client:', error);
-    //     }
-    // };
-
-    // if (!Array.isArray(clients.clients)) {
-    //     return <div>No clients available.</div>;
-    // }
-
     return (
-        <div className='flex justify-center items-center min-h-[90vh]'>
-            <div className='flex flex-col items-center justify-center md:items-end border-b p-[40px] w-[270px] md:w-[1000px] bg-gray-50 rounded'>
-                <button
-                    className="bg-blue-500 text-white p-2 rounded-md shadow-sm hover:bg-blue-600"
-                    onClick={() => setIsPopupOpen(true)}
-                >
-                    + Add Client
-                </button>
-                {Users.usersWithTotalSales.map((user, index) => (
-                    <div key={index} className="flex items-center w-[260px] md:w-[900px] justify-between border-b-b p-4">
-                        <div className="flex flex-col">
-                            <span className="font-semibold text-xs md:text-[15px]">{user.user.name}</span>
-                            <span className="text-gray-500 text-xs md:text-[15px]">{user.user.email}</span>
+        <div className='flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300'>
+            <div className='w-full max-w-5xl bg-white shadow-lg rounded-lg p-8'>
+                <div className='flex justify-between items-center mb-8'>
+                    <h1 className='text-2xl font-bold text-gray-700'>User Management</h1>
+                    <button
+                        className='flex items-center bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-300'
+                        onClick={() => setIsPopupOpen(true)}
+                    >
+                        <MdAdd className='mr-2' /> Add User
+                    </button>
+                </div>
+                <div className='divide-y divide-gray-200'>
+                    {users.usersWithTotalSales.map((user, index) => (
+                        <div key={index} className='flex justify-between items-center py-6 px-4 hover:bg-gray-50 transition duration-300'>
+                            <div>
+                                <p className='text-lg font-medium text-gray-900'>{user.user.name}</p>
+                                <p className='text-sm text-gray-500'>{user.user.email}</p>
+                            </div>
+                            <div className='text-right'>
+                                <p className='text-sm text-gray-500'>Total Sales</p>
+                                <p className='text-lg font-semibold text-gray-900'>{user.totalSalesCount}</p>
+                            </div>
                         </div>
-                        <div className="flex flex-col items-end">
-                            <span className="text-gray-500 text-xs md:text-[15px]">Total Sales</span> 
-                            <span className="font-semibold text-xs md:text-[15px]">{user.totalSalesCount}</span>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
             {isPopupOpen && <AddUserPopup onClose={() => setIsPopupOpen(false)} />}
         </div>

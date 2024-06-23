@@ -4,27 +4,25 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddClientPopup from './Addclient';
 import { useVerify } from '../Verify';
+import { MdAdd, MdDelete } from 'react-icons/md';
 
 export function Client() {
     useEffect(() => {
         useVerify();
     }, []);
-    
+
     const clients = useRecoilValue(Clients);
     const setClients = useSetRecoilState(Clients);
-
-
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const deleteClient = async (clientId) => {
         try {
             const token = localStorage.getItem('token');
-
-            const response = await axios.post('http://localhost:3000/user/deleteclient', 
-                { clientId: clientId }, 
+            const response = await axios.post('http://localhost:3000/user/deleteclient',
+                { clientId: clientId },
                 {
                     headers: {
-                        'authorization':  token
+                        'authorization': token
                     }
                 }
             );
@@ -42,34 +40,39 @@ export function Client() {
     };
 
     if (!Array.isArray(clients.clients)) {
-        return <div>No clients available.</div>;
+        return <div className='text-center text-gray-500'>No clients available.</div>;
     }
 
     return (
-        <div className='flex justify-center items-center h-[90vh]'>
-            <div className='flex flex-col items-center justify-center md:items-end border-b p-[40px] w-[270px] md:w-[1000px] bg-gray-50 rounded'>
-                <button
-                    className="bg-blue-500 text-white p-2 rounded-md shadow-sm hover:bg-blue-600"
-                    onClick={() => setIsPopupOpen(true)}
-                >
-                    + Add Client
-                </button>
-                {clients.clients.map((client, index) => (
-                    <div key={index} className="flex items-center w-[260px] md:w-[900px] justify-between border-b-b p-4">
-                        <div className="flex flex-col">
-                            <span className="font-semibold text-xs md:text-[15px]">{client.email}</span>
-                            <span className="text-gray-500 text-xs md:text-[15px]">{client._id}</span>
+        <div className='flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300'>
+            <div className='w-full max-w-5xl bg-white shadow-lg rounded-lg p-8'>
+                <div className='flex justify-between items-center mb-8'>
+                    <h1 className='text-2xl font-bold text-gray-700'>Client Management</h1>
+                    <button
+                        className='flex items-center bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition duration-300'
+                        onClick={() => setIsPopupOpen(true)}
+                    >
+                        <MdAdd className='mr-2' /> Add Client
+                    </button>
+                </div>
+                <div className='divide-y divide-gray-200'>
+                    {clients.clients.map((client, index) => (
+                        <div key={index} className='flex justify-between items-center py-6 px-4 hover:bg-gray-50 transition duration-300'>
+                            <div>
+                                <p className='text-lg font-medium text-gray-900'>{client.email}</p>
+                                <p className='text-sm text-gray-500'>{client._id}</p>
+                            </div>
+                            <div className='text-right'>
+                                <button
+                                    className='flex items-center text-sm md:text-base bg-red-500 text-white px-3 py-1 rounded-md shadow-md hover:bg-red-600 transition duration-300'
+                                    onClick={() => deleteClient(client._id)}
+                                >
+                                    <MdDelete className='mr-1' /> Delete
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex flex-col items-end">
-                            <button
-                                className='text-[10px] md:text-[18px] bg-red-500 p-[6px] rounded text-[white]'
-                                onClick={() => deleteClient(client._id)}
-                            >
-                                delete
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
             {isPopupOpen && <AddClientPopup onClose={() => setIsPopupOpen(false)} />}
         </div>

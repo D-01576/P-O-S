@@ -19,7 +19,6 @@ async function Verify(req, res) {
             const userr = await User.findOne({ _id: userId });
             if (userr) {
                 return res.status(201).json({ status: "success" });
-                console.log("suces")
             } else {
                 return res.status(403).json({ status: "User not found" });
             }
