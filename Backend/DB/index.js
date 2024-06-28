@@ -45,7 +45,7 @@ const saleSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
     isPaid: { type: Boolean, default: false },
     vehicleDetails: {
-        make: { type: String, required: true },
+        make: { type: String, required: true},
         model: { type: String, required: true },
         registrationNumber: { type: String, required: true },
         gstNumber: { type: String },
