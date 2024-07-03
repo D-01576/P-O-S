@@ -35,7 +35,6 @@ const itemSchema = new mongoose.Schema({
     item: { type: String, required: true },
     price: { type: Number, required: true },
 });
-
 // Sale model
 const saleSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
